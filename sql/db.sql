@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS blog;
+CREATE DATABASE blog;
+
+DROP TABLE IF EXISTS blog.user;
+CREATE TABLE blog.user(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(125) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
