@@ -45,7 +45,7 @@ module.exports = function(app){
         })
 
     })
-//提交登录信息
+    //提交登录信息
     app.post('/login',(req,res)=>{
         let username = req.body.username;
         let password = req.body.password;
@@ -58,7 +58,7 @@ module.exports = function(app){
                     //比较两次密码是否一致
                     if (bcrypt.compareSync(password, encryptedPassword)) {
                         // res.sendFile(path.join(__dirname, 'views/default.html'));
-                        req.session.username = username;
+                        req.session.username = result[0].username;
                         let userId = result[0].id;
                         req.session.userId = userId;
                         res.render('index',{session:req.session});
@@ -74,5 +74,10 @@ module.exports = function(app){
             })
             conn.release();
         })
+    })
+    //注销
+    app.get('/logout',(req,res)=>{
+        req.session.destroy();
+        res.redirect('/');//重定向
     })
 }
