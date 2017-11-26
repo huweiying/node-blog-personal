@@ -58,7 +58,10 @@ module.exports = function(app){
                     //比较两次密码是否一致
                     if (bcrypt.compareSync(password, encryptedPassword)) {
                         // res.sendFile(path.join(__dirname, 'views/default.html'));
-                        res.render('index',{});
+                        req.session.username = username;
+                        let userId = result[0].id;
+                        req.session.userId = userId;
+                        res.render('index',{session:req.session});
                     } else {
                         // res.sendFile(path.join(__dirname, 'views/login.html'));
                         res.render('login',{msg:'用户名或密码错误'});
