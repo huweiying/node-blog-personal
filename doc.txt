@@ -1,0 +1,52 @@
+## Node.js Blog Projcet
+1. 创建 node-blog-demo 项目
+2. 创建 .gitignore
+	2.1 忽略 .idea
+	2.2 忽略 node_modules
+3. 创建 README.md
+4. 创建 package.json，根目录下执行 cmd: npm init，修改 main: app.js
+5. 创建 /app.js 文件
+6. 创建目录 views
+7. 创建文件 views/default.html，项目的首页，有登录链接和注册链接
+8. 创建文件 views/sign-in.html，views/sign-up.html，含有登录和注册的表单
+9. 安装 modules: express, mysql, body-parser，根目录下执行命令 cmd: cnmp i -S express mysql body-parser
+10. 修改 app.js 文件，创建简单的服务器
+11. 启动服务，根目录下 cmd: supervisor app[.js]
+12. 引入核心模块 path
+13. 配置首页的路由，修改 app.js 文件，app.get('/', (req, res){});
+14. 配置注册页链接的路由，修改 app.js 文件，app.get('/sign-up', (req, res){});
+15. 配置注册请求路由，修改 app.js 文件，app.post('/signUp',...)
+16. 引入 body-parser，配置 body-parser 中间件，获取表单信息：req.body.username; req.body.password
+17. 引入 mysql，创建连接池 pool
+18. 创建文件 sql/db.sql 建库: blog 建表: user id;username;password
+19. 数据库处理，保存用户名和密码
+20. 返回响应，注册成功，去向 views/sign-in.html
+21. 配置登录路由
+	21.1 请求表单 action="/signIn"
+	21.2 创建路由 app.post('/signIn', ...);
+	21.3 获取表单参数
+	21.4 数据库处理，查询
+	21.5 返回响应，登录成功，去向 views/index.html
+22. 创建项目主页：views/index.html
+
+
+## Github
+1. 创建 node-blog-demo 项目
+2. 创建 .gitignore
+	2.1 忽略 .idea
+	2.2 忽略 node_modules
+3. 创建 README.md，项目信息
+4. 系统用户目录下，创建 .gitconfig
+	[user]
+		name = github 用户名
+		email = github 注册邮箱
+5. .gitconfig 可以在 webstorm 里创建，放到系统用户目录下
+6. 配置 webstorm
+	6.1 下载 Git，http://git-scm.com
+	6.2 安装 Git，默认选项
+	6.3 File-Settings-Version Control-Git 配置 git，Test
+	6.4 File-Settings-Version Control-GitHub
+	6.5 Auth-Type: Password
+	6.6 填写用户名 Login 和密码 Password，Test
+7. 向 Github 提交项目，菜单 VCS-Import into Version Control-Share Project on Github-Share
+8. 项目修改后，提交快捷键 Ctrl+K，提交时选择 Commit and Push-Push
