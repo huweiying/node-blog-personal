@@ -30,23 +30,4 @@
 22. 创建项目主页：views/index.html
 
 
-## Github
-1. 创建 node-blog-demo 项目
-2. 创建 .gitignore
-	2.1 忽略 .idea
-	2.2 忽略 node_modules
-3. 创建 README.md，项目信息
-4. 系统用户目录下，创建 .gitconfig
-	[user]
-		name = github 用户名
-		email = github 注册邮箱
-5. .gitconfig 可以在 webstorm 里创建，放到系统用户目录下
-6. 配置 webstorm
-	6.1 下载 Git，http://git-scm.com
-	6.2 安装 Git，默认选项
-	6.3 File-Settings-Version Control-Git 配置 git，Test
-	6.4 File-Settings-Version Control-GitHub
-	6.5 Auth-Type: Password
-	6.6 填写用户名 Login 和密码 Password，Test
-7. 向 Github 提交项目，菜单 VCS-Import into Version Control-Share Project on Github-Share
-8. 项目修改后，提交快捷键 Ctrl+K，提交时选择 Commit and Push-Push
+

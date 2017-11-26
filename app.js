@@ -5,7 +5,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-
+const bcrypt = require('bcryptjs');
 let app = express();
 let pool = mysql.createPool({
     database : 'blog',
@@ -29,6 +29,8 @@ app.get('/login',(req,res)=>{
 app.post('/register',(req,res)=>{
     let username = req.body.username;
     let password = req.body.password;
+    let salt = bcrypt.genSaltSync(10);//随机盐，提高密码安全性
+    let encryptedPassword = bcrypt.hashSync(password,salt);
     pool.getConnection((err,conn)=>{
         if (err) throw err;
         //如果用户名存在，则不插入
@@ -38,7 +40,7 @@ app.post('/register',(req,res)=>{
                 res.sendFile(path.join(__dirname,'views/register.html'));
             }else{
                 console.log(result.length);
-                conn.query('INSERT INTO user VALUE(null,?,?)',[username,password],(err,result,fields)=>{
+                conn.query('INSERT INTO user VALUE(null,?,?)',[username,encryptedPassword],(err,result,fields)=>{
                     if (err) throw err;
                     if(result.affectedRows === 1){
                         //注册成功
@@ -60,12 +62,18 @@ app.post('/login',(req,res)=>{
     let password = req.body.password;
     pool.getConnection((err,conn)=>{
         if (err) throw err;
-        conn.query('SELECT * FROM user WHERE username = ? AND password = ?',[username,password],(err,result,fields)=>{
-            if(result.length === 1){
-                res.sendFile(path.join(__dirname,'views/default.html'));
-            }else{
-                res.sendFile(path.join(__dirname,'views/login.html'));
+        conn.query('SELECT * FROM user WHERE username = ?',[username],(err,result,fields)=>{
+            if(result.length === 1) {
+                //获得该用户加密的密码
+                let encryptedPassword = result[0].password;
+                //比较两次密码是否一致
+                if (bcrypt.compareSync(password, encryptedPassword)) {
+                    res.sendFile(path.join(__dirname, 'views/default.html'));
+                } else {
+                    res.sendFile(path.join(__dirname, 'views/login.html'));
+                }
             }
+
         })
         conn.release();
     })
