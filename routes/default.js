@@ -5,17 +5,20 @@
 module.exports = function (app) {
     //引入默认页面
     app.get('/',(req,res)=>{
-        // res.sendFile(path.join(__dirname,'views/default.html'));
-        res.render('default',{});
+        res.render('index',{session:req.session});
     });
     //获取注册页
     app.get('/register',(req,res)=>{
-        // res.sendFile(path.join(__dirname,'views/register.html'));
-        res.render('register',{msg:null});
+        res.render('register',{err:req.flash('err'),succ:req.flash('succ'),session:req.session});
     })
     //获取登录页
     app.get('/login',(req,res)=>{
-        // res.sendFile(path.join(__dirname,'views/login.html'));
-        res.render('login',{msg:null});
+        res.render('login',{err:req.flash('err'),succ:req.flash('succ'),session:req.session});
     });
+    //注销
+    app.get('/logout',(req,res)=>{
+        req.session.destroy();
+        res.redirect('/');
+    })
+
 }
